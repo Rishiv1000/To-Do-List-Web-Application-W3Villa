@@ -52,12 +52,7 @@ const Register = () => {
         <h1 className="display-6">Create an account.</h1>
         <p className="text-sm fw-bolder">Get things done.</p>
         <form className="py-3" onSubmit={handleSubmit}>
-          {/* if user put picture url then dynamically show avatar component */}
-          {
-            pictureUrl && (
-              <Avatar url={pictureUrl} />
-            )
-          }
+          
           <div className="row mb-3" >
           <div className="">
               <label htmlFor="inputPictureUrl" className="form-label">
