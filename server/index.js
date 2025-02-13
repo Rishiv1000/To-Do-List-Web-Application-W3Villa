@@ -8,7 +8,7 @@ const userRoutes = require('./routes/userRoutes'); // import user routes
 const app = express(); // create express app
 const port = 8080; // port to listen on
 
-app.use(cors({origin:"https://to-do-list-web-application-mern.vercel.app", credentials:true}))
+app.use(cors({origin:"https://to-do-list-web-application-full-stack.vercel.app", credentials:true}))
  // use cors
 app.use(express.json()); // use express.json to parse json bodies
 app.use(bodyParser.json()); // use body-parser to parse json bodies
