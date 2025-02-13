@@ -53,14 +53,7 @@ const Register = () => {
         <p className="text-sm fw-bolder">Get things done.</p>
         <form className="py-3" onSubmit={handleSubmit}>
           
-          <div className="row mb-3" >
-          <div className="">
-              <label htmlFor="inputPictureUrl" className="form-label">
-                Picture Url
-              </label>
-              <input type="text" className="form-control" value={pictureUrl} onChange={(e) => setPictureUrl(e.target.value)} id="inputPictureUrl" />
-            </div>
-          </div>
+          
           <div className="row mb-3">
             <div className="col-md-6">
               <label htmlFor="inputFirstname" className="form-label">
