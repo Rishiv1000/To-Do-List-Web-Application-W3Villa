@@ -4,34 +4,33 @@ const jwt = require("jsonwebtoken"); // Import Jsonwebtoken Package
 require("dotenv").config(); // Import dotenv Package
 
 // Register User
+// Register User
 exports.register = async (req, res) => {
   try {
     // Get user input
-    const { first_name, last_name, email, password, picture } = req.body; // Destructure req.body
+    const { first_name, last_name, email, password } = req.body; // Removed 'picture'
 
     // Validate user input
     if (!(email && password && first_name && last_name)) {
       return res.status(400).send("All input is required");
     }
 
-    // check if user already exists
-    // Validate if user exists in our database
-    const oldUser = await User.findOne({ email }); // Find user with requested email
+    // Check if user already exists
+    const oldUser = await User.findOne({ email });
 
     if (oldUser) {
       return res.status(409).send("User Already Exist. Please Login");
     }
 
     // Encrypt user password
-    const encryptedPassword = await bcrypt.hash(password, 10); // Encrypt password with bcryptjs
+    const encryptedPassword = await bcrypt.hash(password, 10);
 
     // Create user in our database
     const user = await User.create({
       first_name,
       last_name,
       email: email.toLowerCase(), // sanitize: convert email to lowercase
-      password: encryptedPassword,
-      picture: picture
+      password: encryptedPassword
     });
 
     // Create token
@@ -43,7 +42,7 @@ exports.register = async (req, res) => {
       }
     );
     
-    // Return new user and token
+    // Return new user and token (without 'picture' field)
     res.status(201).json({ user, token });
   } catch (err) {
     console.log(err);
@@ -52,6 +51,8 @@ exports.register = async (req, res) => {
 };
 
 
+
+// Login User
 // Login User
 exports.login = async (req, res) => {
   try {
@@ -76,11 +77,11 @@ exports.login = async (req, res) => {
         }
       );
 
-      // Save user token
-      user.token = token;
+      // Exclude password from the response
+      user.password = undefined;  // Removing the password field
 
-      // Send user response
-      return res.status(200).json(user);
+      // Send user response (without the password)
+      return res.status(200).json({ user, token });
     }
 
     // Invalid credentials
