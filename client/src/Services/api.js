@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const API_BASE_URL = "http://localhost:8080/api";
+const API_BASE_URL = "https://to-do-list-web-application-mern.vercel.app";
 // api request to register a new user
 export const registerUser = async (userData) => {
   try {
