@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Avatar from "../components/User/Avatar";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, setUserId, setToken, setPicture } from "../Store/userSlice";
@@ -8,13 +9,13 @@ import { registerUser } from "../Services/api";
 const Register = () => {
   const [email, setEmail] = useState(""); // State to hold the email address
   const [password, setPassword] = useState(""); // State to hold the password
-  const [firstname, setFirstname] = useState(""); // State to hold the firstname
-  const [lastname, setLastname] = useState(""); // State to hold the lastname
-  const [pictureUrl, setPictureUrl] = useState(""); // State to hold the pictureUrl
+  const [firstname, setFirstname] = useState("") // State to hold the firstname
+  const [lastname, setLastname] = useState("") // State to hold the lastname
+  const [pictureUrl, setPictureUrl] = useState("") // State to hold the pictureUrl
   const navigate = useNavigate(); // Navigate hook to redirect the user
   const dispatch = useDispatch(); // Dispatch hook to dispatch actions
-  const user = useSelector((state) => state.user.user); // get user email from redux store to check if user already logged in or not
-  const token = useSelector((state) => state.user.token); // get user token from redux store to check if user already logged in or not
+  const user = useSelector((state) => state.user.user); // get user email from redux store to check if user already loggoed in or not
+  const token = useSelector((state) => state.user.token); // get user token from redux store to check if user already loggoed in or not
 
   useEffect(() => {
     // If there is user data in the redux store, redirect to the dashboard
@@ -29,7 +30,8 @@ const Register = () => {
 
     try {
       // Call the registerUser function from the API module to send the register request
-      const response = await registerUser({ first_name: firstname, last_name: lastname, email, password, pictureUrl });
+      const response = await registerUser({ first_name:firstname, last_name:lastname, email, password, pictureUrl });
+      // console.log("Register response:", response);
       // Set the user in the redux store
       dispatch(setUser(response.email));
       // Set the token in the redux store
@@ -46,66 +48,76 @@ const Register = () => {
 
   return (
     <Wrapper className="d-flex align-items-center justify-content-center mt-5">
-      <GlassMorphism className="col-10 col-md-8 col-lg-6 p-4">
-        <h1 className="display-6 text-center mb-4">Create an Account</h1>
-        <p className="text-sm text-center mb-4 text-muted">Join us and start getting things done!</p>
+      <GlassMorphism className="col-10 col-md-8 col-lg-6 p-3">
+        <h1 className="display-6">Create an account.</h1>
+        <p className="text-sm fw-bolder">Get things done.</p>
         <form className="py-3" onSubmit={handleSubmit}>
-          
-
+          {/* if user put picture url then dynamically show avatar component */}
+          {
+            pictureUrl && (
+              <Avatar url={pictureUrl} />
+            )
+          }
+          <div className="row mb-3" >
+          <div className="">
+              <label htmlFor="inputPictureUrl" className="form-label">
+                Picture Url
+              </label>
+              <input type="text" className="form-control" value={pictureUrl} onChange={(e) => setPictureUrl(e.target.value)} id="inputPictureUrl" />
+            </div>
+          </div>
           <div className="row mb-3">
             <div className="col-md-6">
-              <label htmlFor="inputFirstname" className="form-label">Firstname</label>
-              <input
-                type="text"
-                className="form-control"
-                value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
-                id="inputFirstname"
-                placeholder="Enter your first name"
-              />
+              <label htmlFor="inputFirstname" className="form-label">
+                Firstname
+              </label>
+              <input type="text" className="form-control" value={firstname} onChange={(e)=> setFirstname(e.target.value)} id="inputFirstname" />
             </div>
             <div className="col-md-6">
-              <label htmlFor="inputLastname" className="form-label">Lastname</label>
+              <label htmlFor="inputLastname" className="form-label">
+                Lastname
+              </label>
               <input
                 type="text"
                 className="form-control"
                 id="inputLastname"
                 value={lastname}
                 onChange={(e) => setLastname(e.target.value)}
-                placeholder="Enter your last name"
               />
             </div>
           </div>
-
-          <div className="mb-3">
-            <label htmlFor="inputEmail" className="form-label">Email</label>
-            <input
-              type="email"
-              className="form-control"
-              id="inputEmail"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-            />
+          <div className="row mb-3">
+            <label htmlFor="inputEmail3" className="form-label">
+              Email
+            </label>
+            <div className="">
+              <input
+                type="email"
+                className="form-control"
+                id="inputEmail3"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
           </div>
-
-          <div className="mb-3">
-            <label htmlFor="inputPassword" className="form-label">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="inputPassword"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Create a password"
-            />
+          <div className="row mb-3">
+            <label htmlFor="inputPassword3" className="form-label">
+              Password
+            </label>
+            <div className="">
+              <input
+                type="password"
+                className="form-control"
+                id="inputPassword3"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </div>
-
-          <button type="submit" className="btn btn-primary w-100 py-2 mt-3">Sign Up</button>
-
-          <p className="text-sm mt-2 mb-0 text-center">
-            Already have an account? <strong className="text-decoration-underline cursor-pointer" onClick={() => navigate('/login')}>Sign In</strong>
-          </p>
+          <button type="submit" className="btn btn-primary">
+            Sign Up
+          </button>
+          <p className="text-sm mt-2 mb-0" >Already have an account? <strong className="text-decoration-underline" onClick={() => navigate('/login')} >sign in</strong></p>
         </form>
       </GlassMorphism>
     </Wrapper>
@@ -114,21 +126,12 @@ const Register = () => {
 
 export default Register;
 
-const Wrapper = styled.div`
-  min-height: 100vh;
-  background: linear-gradient(120deg, #a6c0fe, #f68084); /* Soft gradient background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+const Wrapper = styled.div``;
 
 const GlassMorphism = styled.div`
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 15px;
-  padding: 3rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: rgba(155, 155, 155, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
 `;
-
