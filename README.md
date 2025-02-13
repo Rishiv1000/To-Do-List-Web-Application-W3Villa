@@ -1,3 +1,12 @@
+
+
+https://github.com/user-attachments/assets/de172bdc-f99e-4fac-b983-4c788e0fdd70
+
+
+
+
+Please follow the steps below to set up the project locally.
+
 IN SERVER FOLDER  - 
 
 1. create (.env) file in server folder and paste the below values-
