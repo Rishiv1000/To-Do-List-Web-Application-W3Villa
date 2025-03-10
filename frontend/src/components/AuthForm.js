@@ -1,4 +1,4 @@
-// src/components/AuthForm.js
+
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,11 +17,11 @@ const AuthForm = ({ mode }) => {
     try {
       if (mode === 'login') {
         const { data } = await api.post('/auth/login', { email, password });
-        localStorage.setItem('token', data.token); // Save the JWT token to localStorage
-        navigate('/todos'); // Redirect to the /todos page after login
+        localStorage.setItem('token', data.token);
+        navigate('/todos'); 
       } else {
         await api.post('/auth/register', { username, email, password });
-        navigate('/login'); // Redirect to login after successful registration
+        navigate('/login'); 
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong');
