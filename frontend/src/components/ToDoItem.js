@@ -1,4 +1,3 @@
-// src/components/TodoItem.js
 
 import React, { useState } from 'react';
 import api from '../apiurl';
@@ -8,8 +7,8 @@ const TodoItem = ({ todo, fetchTodos }) => {
 
   const handleDelete = async () => {
     try {
-      await api.delete(`/todos/${todo._id}`); // Delete todo
-      fetchTodos(); // Refresh todo list
+      await api.delete(`/todos/${todo._id}`);
+      fetchTodos(); 
     } catch (err) {
       console.error(err);
     }
@@ -17,8 +16,8 @@ const TodoItem = ({ todo, fetchTodos }) => {
 
   const handleToggleCompleted = async () => {
     try {
-      await api.put(`/todos/${todo._id}`, { isCompleted: !isCompleted }); // Toggle completion
-      setIsCompleted(!isCompleted); // Update local state
+      await api.put(`/todos/${todo._id}`, { isCompleted: !isCompleted }); 
+      setIsCompleted(!isCompleted); 
     } catch (err) {
       console.error(err);
     }
@@ -28,7 +27,7 @@ const TodoItem = ({ todo, fetchTodos }) => {
     <li>
       <span
         style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}
-        onClick={handleToggleCompleted} // Toggle completion on click
+        onClick={handleToggleCompleted} 
       >
         {todo.text}
       </span>
