@@ -26,7 +26,40 @@ Before you begin, ensure you have the following installed on your machine:
 
 You can check if they are installed by running:
 
+.........
+.
+.
+.
+..
+.
+..
+.
+.
+..
+.
+.
+..
+.
+.
+.
+.
+.
 
+..
+.
+.
+.
+.
+.
+.
+.
+
+..
+
+..
+.
+
+.
 
 https://github.com/user-attachments/assets/de172bdc-f99e-4fac-b983-4c788e0fdd70
 
