@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const router = express.Router();
 
-// Register new user
+
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -22,26 +22,26 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login user
+
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Find the user by username
+
     const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Check if password matches
+
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Generate JWT token
+
     const token = jwt.sign({ userId: user._id }, "rajTM", { expiresIn: '1h' });
-    res.json({ token });  // Send token in response
+    res.json({ token }); 
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
