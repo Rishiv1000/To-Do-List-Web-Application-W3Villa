@@ -6,22 +6,21 @@ import API_BASE_URL from "../apiurl";
 const Home = () => {
   const navigate = useNavigate();
 
-  // Local state to handle To-Dos
+
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
-  const [editTodo, setEditTodo] = useState(null); // For editing To-Dos
+  const [editTodo, setEditTodo] = useState(null);
   const [editText, setEditText] = useState("");
 
-  // Check if the user is logged in
   useEffect(() => {
     if (!localStorage.getItem("rajTM") || !localStorage.getItem("id")) {
-      navigate("/login"); // Redirect to login if no token is found
+      navigate("/login");
     } else {
-      fetchTodos(); // Fetch todos if logged in
+      fetchTodos(); 
     }
   }, [navigate]);
 
-  // Fetch To-Dos from the API
+
   const fetchTodos = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/v2/todos`, {
@@ -29,13 +28,13 @@ const Home = () => {
           Authorization: `Bearer ${localStorage.getItem("rajTM")}`,
         },
       });
-      setTodos(response.data); // Set To-Dos from API response
+      setTodos(response.data); 
     } catch (error) {
       console.error("Error fetching todos: ", error);
     }
   };
 
-  // Handle adding a new To-Do
+ 
   const handleAddTodo = async (e) => {
     e.preventDefault();
     if (newTodo.trim()) {
@@ -49,8 +48,8 @@ const Home = () => {
             },
           }
         );
-        setNewTodo(""); // Clear input after adding
-        fetchTodos(); // Refresh To-Do list
+        setNewTodo(""); 
+        fetchTodos(); 
       } catch (error) {
         console.error("Error adding todo: ", error.response ? error.response.data : error);
       }
@@ -59,10 +58,10 @@ const Home = () => {
     }
   };
 
-  // Handle editing a To-Do
+ 
   const handleEditTodo = (todo) => {
     setEditTodo(todo);
-    setEditText(todo.text); // Set initial text for editing
+    setEditText(todo.text); 
   };
 
   const handleUpdateTodo = async (e) => {
@@ -78,9 +77,9 @@ const Home = () => {
             },
           }
         );
-        setEditTodo(null); // Reset editing state
-        setEditText(""); // Clear input
-        fetchTodos(); // Refresh To-Do list
+        setEditTodo(null); 
+        setEditText(""); 
+        fetchTodos(); 
       } catch (error) {
         console.error("Error updating todo: ", error.response ? error.response.data : error);
       }
@@ -89,7 +88,7 @@ const Home = () => {
     }
   };
 
-  // Handle deleting a To-Do
+
   const handleDeleteTodo = async (todoId) => {
     try {
       const response = await axios.delete(`${API_BASE_URL}/v2/todos/${todoId}`, {
@@ -98,17 +97,17 @@ const Home = () => {
         },
       });
       console.log("Delete successful:", response.data);
-      fetchTodos(); // Refresh To-Do list
+      fetchTodos();
     } catch (error) {
       console.error("Error deleting todo: ", error.response ? error.response.data : error.message);
     }
   };
 
-  // Handle logging out
+
   const handleLogout = () => {
     localStorage.removeItem("rajTM");
     localStorage.removeItem("id");
-    navigate("/login"); // Redirect to login page after logout
+    navigate("/login"); 
   };
 
   return (
@@ -124,7 +123,7 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Add New To-Do */}
+     
       <form onSubmit={handleAddTodo} className="mb-6">
         <input
           type="text"
@@ -141,7 +140,7 @@ const Home = () => {
         </button>
       </form>
 
-      {/* List of To-Dos */}
+    
       <ul className="space-y-4 w-72">
         {todos.map((todo) => (
           <li key={todo._id} className="flex items-center justify-between bg-gray-700 p-4 rounded-lg">
