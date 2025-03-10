@@ -5,11 +5,10 @@ import API_BASE_URL from "../apiurl";
 
 const Signup = () => {
   const history = useNavigate();
-  
-  // Local state to handle input data
+ 
   const [Data, setData] = useState({ username: "", email: "", password: "" });
-  const [error, setError] = useState(""); // For displaying errors
-  const [showAlert, setShowAlert] = useState(false); // For showing alert box
+  const [error, setError] = useState(""); 
+  const [showAlert, setShowAlert] = useState(false); ]
 
   const change = (e) => {
     const { name, value } = e.target;
@@ -26,7 +25,7 @@ const Signup = () => {
           Data
         );
         setData({ username: "", email: "", password: "" });
-        history("/login"); // Redirect to login page after successful signup
+        history("/login"); 
       }
     } catch (error) {
       setError(error.response.data.message);
@@ -40,7 +39,7 @@ const Signup = () => {
 
        <h1 className="text-4xl font-bold text-white mb-10">TO-DO LIST</h1>
 
-      {/* Error alert box */}
+    
       {showAlert && (
         <div
           className="fixed top-0 left-1/2 transform -translate-x-1/2 w-96 p-4 bg-red-600 text-white text-center font-semibold z-50 shadow-lg rounded-lg opacity-90 transition-all duration-500 ease-in-out"
@@ -56,7 +55,7 @@ const Signup = () => {
       <div className="p-10 w-96 rounded-xl bg-white shadow-2xl">
         <div className="text-3xl font-semibold text-gray-800 text-center mb-8">Sign Up</div>
         
-        {/* Input Fields */}
+       
         <input
           autoComplete="off"
           type="text"
