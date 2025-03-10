@@ -8,7 +8,7 @@ const Signup = () => {
  
   const [Data, setData] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState(""); 
-  const [showAlert, setShowAlert] = useState(false); ]
+  const [showAlert, setShowAlert] = useState(false); 
 
   const change = (e) => {
     const { name, value } = e.target;
