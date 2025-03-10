@@ -9,13 +9,13 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Skip redirect to signup if we're already on /login page
+    
     if (!window.location.pathname.includes('/login')) {
       if (localStorage.getItem("id") && localStorage.getItem("token")) {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
-        navigate("/signup"); // Redirect to signup if not logged in
+        navigate("/signup"); 
       }
     }
   }, [isLoggedIn, navigate]);
@@ -23,10 +23,10 @@ const App = () => {
   return (
     <div className="bg-gray-900 text-white h-screen p-2 relative">
       <Routes>
-        {/* Protected route for Home page */}
+      
         {isLoggedIn && <Route path="/" element={<Home />} />}
         
-        {/* Unprotected routes for signup and login */}
+      
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
       </Routes>
