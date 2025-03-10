@@ -1,4 +1,3 @@
-// src/components/TodoList.js
 
 import React, { useState, useEffect } from 'react';
 import api from '../apiurl';
@@ -10,7 +9,7 @@ const Todo = () => {
 
   const fetchTodos = async () => {
     try {
-      const { data } = await api.get('/todos'); // Fetch all todos from the backend
+      const { data } = await api.get('/todos'); 
       setTodos(data);
     } catch (err) {
       console.error(err);
@@ -18,15 +17,15 @@ const Todo = () => {
   };
 
   useEffect(() => {
-    fetchTodos(); // Fetch todos when component mounts
+    fetchTodos(); 
   }, []);
 
   const handleAddTodo = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await api.post('/todos', { text: newTodo }); // Add a new todo
-      setTodos([...todos, data]); // Update state with new todo
-      setNewTodo(''); // Clear input
+      const { data } = await api.post('/todos', { text: newTodo }); 
+      setTodos([...todos, data]);
+      setNewTodo('');
     } catch (err) {
       console.error(err);
     }
@@ -39,7 +38,7 @@ const Todo = () => {
         <input
           type="text"
           value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)} // Handle input change
+          onChange={(e) => setNewTodo(e.target.value)} 
           placeholder="Add a new todo"
         />
         <button type="submit">Add Todo</button>
