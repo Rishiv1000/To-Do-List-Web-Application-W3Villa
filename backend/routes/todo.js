@@ -3,7 +3,7 @@ const Todo = require('../models/Todo');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-// Middleware to check authentication
+
 const authMiddleware = async (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
 
@@ -20,7 +20,7 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-// Create a new todo
+
 router.post('/todos', authMiddleware, async (req, res) => {
   const { text } = req.body;
 
@@ -37,7 +37,7 @@ router.post('/todos', authMiddleware, async (req, res) => {
   }
 });
 
-// Get all todos
+
 router.get('/todos', authMiddleware, async (req, res) => {
   try {
     const todos = await Todo.find({ user: req.user.userId });
@@ -47,7 +47,6 @@ router.get('/todos', authMiddleware, async (req, res) => {
   }
 });
 
-// Update a todo
 router.put('/todos/:id', authMiddleware, async (req, res) => {
   const { text, isCompleted } = req.body;
 
@@ -72,23 +71,23 @@ router.put('/todos/:id', authMiddleware, async (req, res) => {
 });
 
 
-// DELETE endpoint to remove a Todo by its ID
+
 router.delete('/todos/:id', authMiddleware, async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
     
-    // Check if the todo exists
+    
     if (!todo) {
       return res.status(404).json({ message: 'Todo not found' });
     }
 
-    // Check if the user is authorized to delete this todo
+   
     if (todo.user.toString() !== req.user.userId) {
       return res.status(403).json({ message: 'Unauthorized' });
     }
 
-    // Delete the todo
-    await Todo.findByIdAndDelete(req.params.id); // Correct way to delete
+   
+    await Todo.findByIdAndDelete(req.params.id);
     
     res.json({ message: 'Todo deleted successfully' });
   } catch (err) {
